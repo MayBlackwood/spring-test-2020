@@ -3,11 +3,11 @@
 .left-nav-wrapper {
   min-width: 400px;
   max-height: 100vh;
+  padding: 0 5px 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: #0c0032;
-  padding: 0 5px 0 10px;
+  background-color: rgb(12, 0, 50);
 
   .search-input {
     height: 5%;

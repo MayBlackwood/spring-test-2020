@@ -1,13 +1,13 @@
 @import "./../../index.scss";
 
 .post-page-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
-  color: white;
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  color: rgb(255, 255, 255);
 
   &.no-posts {
     padding-top: 300px;
@@ -51,6 +51,6 @@
     font-size: 48px;
     line-height: 60px;
     font-weight: 600;
-    color: #090120;
+    color: rgb(9, 1, 32);
   }
 }
