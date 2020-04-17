@@ -1,11 +1,6 @@
-import React from 'react';
-import './App.scss';
+import React from "react";
+import Blog from "./../Blog";
 
-function App() {
-  return (
-    <div className="App">
-    </div>
-  );
-}
+const App = () => <Blog />;
 
 export default App;

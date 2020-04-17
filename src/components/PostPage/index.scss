@@ -1,0 +1,56 @@
+@import "./../../index.scss";
+
+.post-page-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  color: white;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &.no-posts {
+    padding-top: 300px;
+  }
+
+  .post-info {
+    max-width: 500px;
+  }
+
+  .img-wrapper {
+    width: 150px;
+
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      box-shadow: 0 20px 50px rgba(240, 46, 170, 0.7);
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bio {
+    font-size: 18px;
+    line-height: 32px;
+  }
+}
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    font-size: 48px;
+    line-height: 60px;
+    font-weight: 600;
+    color: #090120;
+  }
+}
