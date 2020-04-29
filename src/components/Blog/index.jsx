@@ -64,3 +64,56 @@ class Blog extends React.Component {
 }
 
 export default Blog;
+
+// import React, { useState, useEffect } from "react";
+
+// import LeftNav from "./../LeftNav";
+// import PostPage from "./../PostPage";
+
+// import { getFullPost } from "../../api";
+
+// import "./index.scss";
+
+// function Blog(props) {
+//   const [post, setPost] = useState(null);
+
+//   useEffect(() => {
+//     const { post } = this.state;
+//     if ((!prevState.post && post) || (post && post.id !== prevState.post.id)) {
+//       this.loadFullPost(post.more);
+//     }
+//   }, [post]);
+
+//   async function loadFullPost(path) {
+//     const fullPost = await getFullPost(path);
+//     const newPost = {
+//       ...this.state.post,
+//       ...fullPost,
+//     };
+
+//     setPost(newPost);
+//   }
+
+//   function handleCardClick(data) {
+//     if (!post || data.id !== post.id) {
+//       this.setState({ post: data });
+//     }
+//   }
+
+//   function resetPost() {
+//     setPost(null);
+//   }
+
+//   const postId = post ? post.id : null;
+
+//   return (
+//     <div className="blog">
+//       <LeftNav
+//         handleCardClick={handleCardClick}
+//         activePostId={postId}
+//         resetPost={resetPost}
+//       />
+//       <PostPage post={post} />
+//     </div>
+//   );
+// }

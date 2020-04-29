@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 
 import Input from "./../../common/Input";
@@ -13,32 +13,25 @@ import {
 
 import "./index.scss";
 
-class LeftNav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cards: [],
-      searchValue: "",
-    };
+function LeftNav(props) {
+  const [cards, setCards] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    loadCards();
+  });
+
+  function handleSearchInputChange(e) {
+    setSearchValue(e.target.value);
   }
 
-  componentDidMount() {
-    this.loadCards();
-  }
-
-  handleSearchInputChange = ({ target: { value } }) => {
-    this.setState({ searchValue: value });
-  };
-
-  getFilteredCards = () => {
-    const { searchValue, cards } = this.state;
-
+  function getFilteredCards() {
     return cards.filter(
       (card) => card.name.toLowerCase().search(searchValue.toLowerCase()) !== -1
     );
-  };
+  }
 
-  loadCards = async () => {
+  async function loadCards() {
     let cards = await getCardsData();
     const disabledCardsIds = getDisabledCardsIds();
 
@@ -50,26 +43,22 @@ class LeftNav extends React.Component {
       }
       return item;
     });
+    cards.sort(sortCardsByField("disabled"));
 
-    cards.sort(this.sortCardsByField("disabled"));
+    setCards(cards);
+  }
 
-    this.setState({ cards });
-  };
-
-  sortCardsByField = (field) => {
+  function sortCardsByField(field) {
     return (a, b) => (a[field] > b[field] ? 1 : -1);
-  };
+  }
 
-  handleCardButtonClick = (e, id) => {
+  function handleCardButtonClick(e, id) {
     e.stopPropagation();
-    const { activePostId, resetPost } = this.props;
-    const { cards } = this.state;
+    const { activePostId, resetPost } = props;
     const index = cards.findIndex((item) => item.id === id);
     const newCards = [...cards];
     const card = newCards[index];
-    
     card.disabled = !card.disabled;
-
     if (card.disabled) {
       card.id === activePostId && resetPost();
       card.deletedDate = moment().format("MMMM Do YYYY, h:mm:ss a");
@@ -82,39 +71,35 @@ class LeftNav extends React.Component {
       newCards.unshift(card);
       restoreDisabledCardId(id);
     }
-
-    this.setState({ cards: newCards });
-  };
-
-  render() {
-    const { searchValue } = this.state;
-    const { handleCardClick, activePostId } = this.props;
-    const filteredCards = this.getFilteredCards();
-
-    return (
-      <div className="left-nav-wrapper">
-        <div className="search-input">
-          <Input
-            placeholder="Search..."
-            value={searchValue}
-            name="searchInput"
-            handleChange={this.handleSearchInputChange}
-          />
-        </div>
-        <div className="cards-wrapper">
-          {filteredCards.map((card) => (
-            <Card
-              key={card.id}
-              data={card}
-              selected={activePostId === card.id}
-              onCardClick={() => handleCardClick(card)}
-              onButtonClick={(e) => this.handleCardButtonClick(e, card.id)}
-            />
-          ))}
-        </div>
-      </div>
-    );
+    setCards(newCards);
   }
+
+  const { handleCardClick, activePostId } = props;
+  const filteredCards = getFilteredCards();
+
+  return (
+    <div className="left-nav-wrapper">
+      <div className="search-input">
+        <Input
+          placeholder="Search..."
+          value={searchValue}
+          name="searchInput"
+          handleChange={handleSearchInputChange}
+        />
+      </div>
+      <div className="cards-wrapper">
+        {filteredCards.map((card) => (
+          <Card
+            key={card.id}
+            data={card}
+            selected={activePostId === card.id}
+            onCardClick={() => handleCardClick(card)}
+            onButtonClick={(e) => handleCardButtonClick(e, card.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default LeftNav;
