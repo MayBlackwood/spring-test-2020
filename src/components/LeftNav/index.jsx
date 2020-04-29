@@ -21,17 +21,17 @@ function LeftNav(props) {
     loadCards();
   });
 
-  function handleSearchInputChange(e) {
+  const handleSearchInputChange = (e) => {
     setSearchValue(e.target.value);
-  }
+  };
 
-  function getFilteredCards() {
+  const getFilteredCards = () => {
     return cards.filter(
       (card) => card.name.toLowerCase().search(searchValue.toLowerCase()) !== -1
     );
-  }
+  };
 
-  async function loadCards() {
+  const loadCards = async () => {
     let cards = await getCardsData();
     const disabledCardsIds = getDisabledCardsIds();
 
@@ -46,13 +46,13 @@ function LeftNav(props) {
     cards.sort(sortCardsByField("disabled"));
 
     setCards(cards);
-  }
+  };
 
-  function sortCardsByField(field) {
+  const sortCardsByField = (field) => {
     return (a, b) => (a[field] > b[field] ? 1 : -1);
-  }
+  };
 
-  function handleCardButtonClick(e, id) {
+  const handleCardButtonClick = (e, id) => {
     e.stopPropagation();
     const { activePostId, resetPost } = props;
     const index = cards.findIndex((item) => item.id === id);
@@ -72,7 +72,7 @@ function LeftNav(props) {
       restoreDisabledCardId(id);
     }
     setCards(newCards);
-  }
+  };
 
   const { handleCardClick, activePostId } = props;
   const filteredCards = getFilteredCards();
